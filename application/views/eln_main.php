@@ -22,7 +22,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="exampleInputName2">Îעקוסעגמ</label>
-                        <input type="text" class="form-control" id="patronum" name="patronum" placeholder="Âאכונüוגטק">
+                        <input type="text" class="form-control" id="secname" name="secname" placeholder="Âאכונüוגטק">
                     </div>
                 </div>
 

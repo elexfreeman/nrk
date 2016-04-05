@@ -8,7 +8,7 @@ class Auth_model extends CI_Model
     {
 
         $this->load->database();
-        date_default_timezone_set('Europe/London');
+
         $this->load->helper('url');
     }
 

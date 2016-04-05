@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Eln extends CI_Controller {
+class Search extends CI_Controller {
 
 	/*переменная для вывода в view*/
 	public $data;
 
 	public function __construct()
 	{
+		date_default_timezone_set('Europe/London');
 		parent::__construct();
 		/*Загружаем  библиотеку сессий*/
 		$this->load->library('session');
@@ -23,29 +24,12 @@ class Eln extends CI_Controller {
 		$this->data['user_name']=$this->auth_model->GetloginUser();
 	}
 
-	public function index()
-	{
-		/*Если залогинен*/
-		if($this->auth_model->IsLogin())
-		{
-			$this->load->model('mainpage_model');
-
-			$this->load->view('head',$this->data);
-			$this->load->view('navbar',$this->data);
-			$this->load->view('eln_main',$this->data);
-			$this->load->view('footer',$this->data);
-		}
-		/*Иначе редиректим на auth form*/
-		else
-		{
-			header('Location: '.base_url('auth'));
-			exit;
-		}
-	}
 
 	/*Поиск аяксовый*/
-	public function search()
+	public function index()
 	{
-		echo json_encode($this->auth_model->search());
+
+			echo print_r($this->nrk_model->search($_POST));
+
 	}
 }
