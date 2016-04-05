@@ -17,12 +17,12 @@ var nark = [];
 nark.Search = function()
 {
     var SearchForm = $('#search-form').serializeArray();
-
+    console.info(SearchForm);
     //$('.results-area').html(SearchForm);
     $('.results').fadeIn();
-
+    $('.results-area').html($('#loader').html());
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: 'search',
         data: SearchForm,
        // dataType : "json",

@@ -43,9 +43,4 @@ class Eln extends CI_Controller {
 		}
 	}
 
-	/*Поиск аяксовый*/
-	public function search()
-	{
-		echo json_encode($this->auth_model->search());
-	}
 }

@@ -5,9 +5,10 @@
  * Date: 11.03.16
  * Time: 17:11
  */
-
 /*Модель для поиска по базе*/
-class Nrk_model extends CI_Model {
+
+class Nrk_model extends CI_Model
+{
 
     public function __construct()
     {
@@ -17,9 +18,9 @@ class Nrk_model extends CI_Model {
     }
 
     public function search($arg)
-   // public function search()
+        // public function search()
     {
-        $sql="
+        $sql = "
 
         SELECT DISTINCT TOP 100 f.SURNAME [SURNAME],f.NAME [NAME],f.SECNAME [SECNAME]
  ,f.birthday [BIRTHDAY],me.SNILS,a.FULLADR,
@@ -52,62 +53,53 @@ AND (
  ";
 
 
-$sql_where = '';
+        $sql_where = '';
 
-if(isset($arg['surname'])!='')
-{
-    $arg['surname'] = $this->security->xss_clean($arg['surname']);
-    $sql_where.=" f.surname like '".$arg['surname']."' AND";
-}
+        if (($arg['surname']) != '') {
+            $arg['surname'] = $this->security->xss_clean($arg['surname']);
+            $sql_where .= " f.surname LIKE '%" . $arg['surname'] . "%' AND";
+        }
 
-if(isset($arg['secname'])!='')
-{
-    $arg['secname'] = $this->security->xss_clean($arg['secname']);
-    $sql_where.=" f.SECNAME like '".$arg['secname']."' AND";
-}
+        if (($arg['secname']) != '') {
+            $arg['secname'] = $this->security->xss_clean($arg['secname']);
+            $sql_where .= " f.SECNAME LIKE '%" . $arg['secname'] . "%' AND";
+        }
 
-if(isset($arg['name'])!='')
-{
-    $arg['name'] = $this->security->xss_clean($arg['name']);
-    $sql_where.=" f.NAME like AND '".$arg['name']."' AND";
-}
+        if (($arg['name']) != '') {
+            $arg['name'] = $this->security->xss_clean($arg['name']);
+            $sql_where .= " f.NAME like '%" . $arg['name'] . "%' AND";
+        }
 
         /*1973-08-29 00:00:00*/
-if(isset($arg['birthday'])!='')
-{
-    $arg['birthday'] = $this->security->xss_clean($arg['birthday']);
-    $sql_where.=" f.birthday like '".$arg['birthday']."' AND";
-}
+        if (($arg['birthday']) != '') {
+            $arg['birthday'] = $this->security->xss_clean($arg['birthday']);
+            $sql_where .= " f.birthday = '" . $arg['birthday'] . "' AND";
+        }
 
-if(isset($arg['snils'])!='')
-{
-    $arg['snils'] = $this->security->xss_clean($arg['snils']);
-    $sql_where.=" me.snils = '".$arg['snils']."' AND";
-}
+        if (($arg['snils']) != '') {
+            $arg['snils'] = $this->security->xss_clean($arg['snils']);
+            $sql_where .= " me.snils LIKE '%" . $arg['snils'] . "%' AND";
+        }
 
-if(isset($arg['address'])!='')
-{
-    $arg['address'] = $this->security->xss_clean($arg['address']);
-    $sql_where.=" a.fulladr = '".$arg['address']."' AND";
-}
+        if (($arg['address']) != '') {
+            $arg['address'] = $this->security->xss_clean($arg['address']);
+            $sql_where .= " a.fulladr LIKE '%" . $arg['address'] . "%' AND";
+        }
 
-        if($sql_where!='') $sql_where.=' 1=1';
+        if ($sql_where != '') $sql_where = ' AND ' . $sql_where . ' 1=1';
 
 
-        //$sql.=$sql_where." ORder by f.SURNAME,f.NAME,f.SECNAME,f.BIRTHDAY";
+        $sql .= $sql_where . " ORDER by f.SURNAME,f.NAME,f.SECNAME,f.BIRTHDAY";
 
-$sql1="
-SELECT TOP 1000 *
-  FROM  POLYCLINIC_2010..POLD_MEDICAL;";
-        echo $sql;
+
         $query = $this->db->query($sql);
 
 
-       // if($query===1)
+        // if($query===1)
         {
             return $query->result();
         }
-       // else false;
+        // else false;
     }
 
 }
