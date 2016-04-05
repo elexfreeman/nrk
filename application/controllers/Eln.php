@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Eln extends CI_Controller {
 
+	/*переменная для вывода в view*/
 	public $data;
 
 	public function __construct()
@@ -23,12 +24,10 @@ class Eln extends CI_Controller {
 		{
 			$this->load->model('mainpage_model');
 
-			$data['xml']= 'test';
-
-			$this->load->view('head');
+			$this->load->view('head',$this->data);
 			$this->load->view('navbar',$this->data);
 			$this->load->view('eln_main',$this->data);
-			$this->load->view('footer');
+			$this->load->view('footer',$this->data);
 		}
 		else
 		{
